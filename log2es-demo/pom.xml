@@ -67,7 +67,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.suncreate.log2esdemo.Log2esDemoApplication</mainClass>
+                    <mainClass>com.suncreate.log2es.demo.Log2esDemoApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
