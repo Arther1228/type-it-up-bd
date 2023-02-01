@@ -14,7 +14,8 @@
         <module>kafka-demo</module>
         <module>log2es-demo</module>
         <module>redis-demo</module>
-        <module>spark-demo</module>
+        <module>spark2x-demo</module>
+        <!--<module>kerberos-demo</module>-->
     </modules>
 
     <properties>

@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spark-demo</artifactId>
+    <artifactId>spark2x-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
