@@ -249,67 +249,27 @@
     </dependencies>
 
     <build>
-        <!-- 打包所有jar包 -->
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2</version>
                 <executions>
                     <execution>
-                        <id>copy</id>
-                        <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <!--<classifier>spring-boot</classifier>-->
+                            <mainClass>
+                                com.yang.flink.demo.sink.SinkTest
+                            </mainClass>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <compilerArguments>
-                        <!-- 打包本地jar包 -->
-                        <extdirs>${project.basedir}/lib</extdirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
         </plugins>
-
-        <!-- 打包所有配置文件 -->
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>conf</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-                <targetPath>conf</targetPath>
-            </resource>
-
-            <!-- 某些情况下，打包后运行不起来需要打开注释 -->
-            <!-- <resource>
-                <directory>src/main/resources</directory>
-                <targetPath>BOOT-INF/classes/</targetPath>
-            </resource> -->
-        </resources>
     </build>
+
 
 </project>
