@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.demo6;
+package com.yang.kafka.demo.offset.demo6;
 
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;

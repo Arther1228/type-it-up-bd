@@ -37,7 +37,7 @@ public class GetIndexMapExample {
         LinkedHashMap<String, Object> properties = (LinkedHashMap<String, Object>) sourceMap.get("properties");
 
         properties.forEach((key, value) -> {
-                    System.out.println(key + " : " + value);
+                    System.out.println(key);
                     LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) value;
                     System.out.println(map.get("type"));
                 }

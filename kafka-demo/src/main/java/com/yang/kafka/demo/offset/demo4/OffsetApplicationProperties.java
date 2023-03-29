@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.demo4;
+package com.yang.kafka.demo.offset.demo4;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;

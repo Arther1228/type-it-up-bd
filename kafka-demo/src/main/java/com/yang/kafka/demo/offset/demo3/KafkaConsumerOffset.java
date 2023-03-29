@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.demo3;
+package com.yang.kafka.demo.offset.demo3;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

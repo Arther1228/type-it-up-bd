@@ -1,5 +1,5 @@
 import com.yang.kafka.demo.KafkaDemoApplication;
-import com.yang.kafka.demo.demo4.SeekOffset;
+import com.yang.kafka.demo.offset.demo4.SeekOffset;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.junit.Before;

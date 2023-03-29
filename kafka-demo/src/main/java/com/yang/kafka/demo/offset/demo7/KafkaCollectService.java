@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.demo3;
+package com.yang.kafka.demo.offset.demo7;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -6,18 +6,16 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import java.util.Properties;
 
 /**
  * @author admin
- * 尝试使用时间戳完成偏移量设置
- * https://blog.csdn.net/weixin_38251332/article/details/120081411
+ * 简单的kafka消费数据demo
  */
-@Service
-public class KafkaCollectService2 {
-    private static final Logger log = LoggerFactory.getLogger(KafkaCollectService2.class);
+//@Service
+public class KafkaCollectService {
+    private static final Logger log = LoggerFactory.getLogger(KafkaCollectService.class);
 
     @Value("${kafka.consumer.servers}")
     private String servers;
@@ -31,7 +29,7 @@ public class KafkaCollectService2 {
     @Value("${kafka.consumer.topic}")
     private String topic;
 
-    //@PostConstruct
+//    @PostConstruct
     public void start() {
         try {
             Properties properties = new Properties();
@@ -46,9 +44,8 @@ public class KafkaCollectService2 {
             properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);
 
             KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
-
-            //根据时间戳设置偏移量
-            KafkaConsumerOffset.setOffset(consumer, 1662384147000L, topic);
+            ConsumerThread3 consumerThread = new ConsumerThread3(consumer, topic);
+            consumerThread.start();
 
         } catch (Exception e) {
             log.error("出错", e);

@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.demo7;
+package com.yang.kafka.demo.offset.demo1;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author admin
@@ -29,7 +29,7 @@ public class KafkaCollectService {
     @Value("${kafka.consumer.topic}")
     private String topic;
 
-//    @PostConstruct
+    //@PostConstruct
     public void start() {
         try {
             Properties properties = new Properties();
@@ -41,10 +41,10 @@ public class KafkaCollectService {
             //关闭自动提交
             properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
             //每次拉取条数
-            properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);
+            properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
 
             KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
-            ConsumerThread3 consumerThread = new ConsumerThread3(consumer, topic);
+            ConsumerThread consumerThread = new ConsumerThread(consumer, topic);
             consumerThread.start();
 
         } catch (Exception e) {
