@@ -1,12 +1,10 @@
 package com.yang.kafka.demo.topic;
 
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.admin.DeleteTopicsOptions;
-import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.errors.UnknownTopicOrPartitionException;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -37,10 +35,18 @@ public class KafkaTopicCreator {
             NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
 
             // Add the topic to the list of topics to be created
-            adminClient.createTopics(Collections.singletonList(newTopic)).all().get();
+            CreateTopicsResult topics = adminClient.createTopics(Collections.singletonList(newTopic));
+            System.out.println(topics.values().size());
         }
     }
 
+    /**
+     * @desc  代码有问题
+     * @param bootstrapServers
+     * @param topicName
+     * @throws ExecutionException
+     * @throws InterruptedException((HashMap) topics.futures).size
+     */
     public static void deleteTopic(String bootstrapServers, String topicName) throws ExecutionException, InterruptedException {
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
@@ -74,7 +80,7 @@ public class KafkaTopicCreator {
     public static void main(String[] args) throws Exception {
 
         String bootstrapServers = "localhost:9092";
-        String topicName = "clicks2";
+        String topicName = "clicks3";
 
         // Create the Kafka topic
         createTopic(bootstrapServers, topicName);
