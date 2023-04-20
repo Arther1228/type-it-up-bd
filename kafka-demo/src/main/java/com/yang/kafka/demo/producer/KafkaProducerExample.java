@@ -1,17 +1,19 @@
 package com.yang.kafka.demo.producer;
 
 import org.apache.kafka.clients.producer.*;
+
 import java.util.Properties;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author admin
  */
 public class KafkaProducerExample {
-    
+
     private static final String TOPIC_NAME = "user-info";
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-  
+
     public static void main(String[] args) {
 
         // 设置 Producer 属性

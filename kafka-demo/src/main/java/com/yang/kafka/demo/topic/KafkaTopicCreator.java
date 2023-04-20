@@ -41,11 +41,11 @@ public class KafkaTopicCreator {
     }
 
     /**
-     * @desc  代码有问题
      * @param bootstrapServers
      * @param topicName
      * @throws ExecutionException
      * @throws InterruptedException((HashMap) topics.futures).size
+     * @desc 代码有问题
      */
     public static void deleteTopic(String bootstrapServers, String topicName) throws ExecutionException, InterruptedException {
         Properties props = new Properties();

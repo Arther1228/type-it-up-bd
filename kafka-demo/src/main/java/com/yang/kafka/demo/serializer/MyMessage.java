@@ -5,7 +5,8 @@ public class MyMessage {
     private int field2;
     // more fields
 
-    public MyMessage() {}
+    public MyMessage() {
+    }
 
     // getters and setters
 }

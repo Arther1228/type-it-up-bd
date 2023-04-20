@@ -17,7 +17,7 @@ public class JedisTest {
     private static Jedis jedis;
 
     static {
-        jedis = new Jedis("127.0.0.1", 6379);
+        jedis = new Jedis("34.8.12.65", 6379);
 //        jedis.auth("123456"); // 之前我在redis配置中配置了权限密码，这里需要设置
     }
 
