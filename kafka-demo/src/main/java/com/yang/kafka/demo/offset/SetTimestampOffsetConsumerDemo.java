@@ -1,8 +1,8 @@
-package com.yang.kafka.demo.offset.demo3;
+package com.yang.kafka.demo.offset;
 
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
@@ -16,12 +16,16 @@ import java.util.*;
 
 /**
  * @author yangliangchuang 2022/9/5 18:43
+ *  * 尝试使用时间戳完成偏移量设置
+ *  * https://blog.csdn.net/weixin_38251332/article/details/120081411
  */
-public class KafkaConsumerOffset {
+public class SetTimestampOffsetConsumerDemo {
 
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-    public static void setOffset(KafkaConsumer<String, String> consumer, long timestamp, String topic) {
+    private final static String TOPIC = "motorVehicleDisposition";
+
+    public static void setOffset(Consumer<String, String> consumer, long timestamp, String topic) {
         //===========================
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
         Instant instant = Instant.ofEpochMilli(timestamp);
@@ -85,6 +89,13 @@ public class KafkaConsumerOffset {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+
+        Consumer<String, String> consumer = Commons.createConsumer();
+
+        setOffset(consumer, 1662384147000L, TOPIC);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.yang.kafka.demo.consumer;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -7,13 +8,18 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-public class KafkaConsumerExample {
+public class KafkaClientSubscribeExample {
+
+    private final static String TOPIC = "motorVehicleDisposition";
+    private final static String BOOTSTRAP_SERVERS = "34.8.8.115:21005,34.8.8.109:21005,34.8.8.116:21005,34.8.8.111:21005,34.8.8.110:21005,34.8.8.112:21005,34.8.8.113:21005,34.8.8.114:21005,34.8.8.117:21005,34.8.8.118:21005,34.8.8.119:21005,34.8.8.120:21005,34.8.8.121:21005";
+
     public static void main(String[] args) throws Exception {
-        String topicName = "clicks"; // 设置要消费的主题名称
+
+        String topicName = TOPIC; // 设置要消费的主题名称
         Properties props = new Properties();
 
         // 设置Kafka broker地址
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
 
         // 消费者组ID
         props.put("group.id", "test-group");
@@ -36,7 +42,7 @@ public class KafkaConsumerExample {
 
         // 循环获取消息，直到用户强制退出
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
             for (ConsumerRecord<String, String> record : records) {
                 System.out.printf("offset = %d, key = %s, value = %s\n", record.offset(), record.key(), record.value());
             }

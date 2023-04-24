@@ -1,39 +1,31 @@
-package com.yang.kafka.demo.offset.demo4;
+package com.yang.kafka.demo.offset;
 
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
-import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author JMWANG
  * 根据固定的offset差值设置偏移量，执行方法在测试包下 OffsetTest.java
  * https://blog.csdn.net/jj89929665/article/details/121681927
  */
-@Component
-public class SeekOffset extends OffsetApplicationProperties {
+public class ReduceNumberOffsetConsumerDemo {
 
-
-    private static KafkaConsumer consumer = null;
-
-    public static KafkaConsumer getConsumer() {
-        return consumer;
-    }
-
-    public static void setConsumer(KafkaConsumer consumer) {
-        SeekOffset.consumer = consumer;
-    }
+    private final static String TOPIC = "motorVehicleDisposition";
 
     /**
      * @return 返回kafkaProducer对象进行操作
      */
-    public static void SingleCase(int target) {
-        KafkaConsumer kafkaConsumer = consumer;
+    public static void seekTopicData(int target) {
+        KafkaConsumer consumer = (KafkaConsumer) Commons.createConsumer();
 
-        final String topicall = KAFKA_OFFSET_TOPIC;
+        final String topicall = TOPIC;
         String[] topics = topicall.split(",");
 
         for (String topic : topics) {
@@ -82,15 +74,9 @@ public class SeekOffset extends OffsetApplicationProperties {
         }
     }
 
-    private SeekOffset() {
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", KAFKA_OFFSET_SERVER_HOST_PORT);//xxx服务器ip
-        properties.put("enable.auto.commit", KAFKA_OFFSET_ENABLE_AUTO_COMMIT);
-        properties.put("zookeeper.connect", KAFKA_OFFSET_ZOOKEEPER_CONNECT);
-        properties.put("key.deserializer", KAFKA_KEY_SERIALIZER);
-        properties.put("value.deserializer", KAFKA_VALUE_SERIALIZER);
-        properties.put("group.id", KAFKA_OFFSET_GROUP_ID);
-        consumer = new KafkaConsumer<>(properties);
+    public static void main(String[] args) {
+        int target = 1;
+        seekTopicData(target);
     }
 
 }
