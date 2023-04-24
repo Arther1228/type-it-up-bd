@@ -1,4 +1,4 @@
-package com.yang.kafka.demo.topic;
+package com.yang.kafka.demo.adminclient;
 
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.errors.UnknownTopicOrPartitionException;
