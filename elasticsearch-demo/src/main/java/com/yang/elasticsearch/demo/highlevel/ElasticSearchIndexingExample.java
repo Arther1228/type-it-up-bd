@@ -1,39 +1,37 @@
-package com.yang.elasticsearch.demo;
+package com.yang.elasticsearch.demo.highlevel;
+
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpHost;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.client.RequestOptions;
-
+/**
+ * 存储数据
+ * @desc:shiny集群6.1.3和单机集群6.5.4测试通过
+ */
 public class ElasticSearchIndexingExample {
+
+    private static String indexName = "my_index2";
 
     public static void main(String[] args) throws IOException {
 
         // Create a RestHighLevelClient instance
-        RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
+//        RestHighLevelClient client = Commons.getLocalClusterClient();
+        RestHighLevelClient client = Commons.getShinyClusterClient();
 
         // Define the document to be indexed
         Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("user_create_time", "20210322063701");
-        jsonMap.put("user_email", "example@email.com");
-        jsonMap.put("user_id", 123);
-        jsonMap.put("user_name", "example_username");
-        jsonMap.put("user_pwd", "p@ssword");
-        jsonMap.put("user_real_name", "Example User");
-        jsonMap.put("user_status", "active");
-        jsonMap.put("user_tel", "+1234567890");
-        jsonMap.put("user_update_time", "20210322063701");
+        jsonMap.put("name", "james");
+        jsonMap.put("age", 123);
+        jsonMap.put("email", "example@email.com");
 
         // Define the index request and set the source document
-        IndexRequest indexRequest = new IndexRequest("user-info").type("doc")
+        IndexRequest indexRequest = new IndexRequest(indexName).type("doc")
                 .source(jsonMap, XContentType.JSON);
 
         // Execute the index request and get the response

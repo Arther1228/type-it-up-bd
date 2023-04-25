@@ -10,10 +10,18 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author admin
+ * @desc:单机集群2.11-2.1.0测试通过
+ * //TODO shiny集群2.11-0.11.0.1未测试通过
  */
 public class KafkaTopicCreator {
 
-    public static void createTopic(String bootstrapServers, String topicName) throws Exception {
+    private static String local_cluster_server =  "http://localhost:9092";
+    private static String shiny_cluster_server =  "http://34.8.8.115:21005,http://34.8.8.109:21005,http://34.8.8.116:21005";
+
+    private static int numPartitions = 3;
+    private static short replicationFactor = 1;
+
+    public static void createTopic(String bootstrapServers, String topicName, int numPartitions, int replicationFactor) {
 
         // Set up the Kafka admin client properties
         Properties props = new Properties();
@@ -30,10 +38,8 @@ public class KafkaTopicCreator {
         try (AdminClient adminClient = AdminClient.create(props)) {
             // Create the topic config
 //            Map<String, String> config = Collections.singletonMap("message.format", "json");
-
             // Create the topic with the specified config and partitions/replication factor
-            NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
-
+            NewTopic newTopic = new NewTopic(topicName, numPartitions, (short) replicationFactor);
             // Add the topic to the list of topics to be created
             CreateTopicsResult topics = adminClient.createTopics(Collections.singletonList(newTopic));
             System.out.println(topics.values().size());
@@ -45,11 +51,11 @@ public class KafkaTopicCreator {
      * @param topicName
      * @throws ExecutionException
      * @throws InterruptedException((HashMap) topics.futures).size
-     * @desc 代码有问题
+     * @desc //TODO 代码有问题
      */
     public static void deleteTopic(String bootstrapServers, String topicName) throws ExecutionException, InterruptedException {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", bootstrapServers);
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
@@ -79,13 +85,8 @@ public class KafkaTopicCreator {
 
     public static void main(String[] args) throws Exception {
 
-        String bootstrapServers = "localhost:9092";
-        String topicName = "clicks3";
-
-        // Create the Kafka topic
-        createTopic(bootstrapServers, topicName);
-
-//        deleteTopic(bootstrapServers, topicName);
+        String topicName = "clicks4";
+        createTopic(local_cluster_server, topicName, numPartitions, replicationFactor);
 
     }
 }

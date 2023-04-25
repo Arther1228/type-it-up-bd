@@ -1,20 +1,20 @@
-package com.yang.elasticsearch.demo;
+package com.yang.elasticsearch.demo.highlevel;
 
-import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
+/**
+ * @desc:shiny集群6.1.3和单机集群6.5.4测试通过
+ */
 public class ElasticsearchTest {
 
     public static void main(String[] args) throws Exception {
-    
-        // 创建一个 RestHighLevelClient 实例，连接到本地主机的默认端口（9200）
-        RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http")));
-            
+
+        RestHighLevelClient client =  Commons.getLocalClusterClient();
+//        RestHighLevelClient client = Commons.getShinyClusterClient();
+
         try {
             // 使用 client 执行一些基本的 Elasticsearch 请求，例如：
             ClusterHealthResponse response = client.cluster().health(new ClusterHealthRequest(), RequestOptions.DEFAULT);

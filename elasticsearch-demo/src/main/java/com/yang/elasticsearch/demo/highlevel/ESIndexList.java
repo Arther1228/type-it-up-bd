@@ -1,10 +1,8 @@
-package com.yang.elasticsearch.demo;
+package com.yang.elasticsearch.demo.highlevel;
 
-import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
 import org.elasticsearch.client.GetAliasesResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.cluster.metadata.AliasMetaData;
 
@@ -14,11 +12,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @desc:shiny集群6.1.3和单机集群6.5.4测试通过
+ */
 public class ESIndexList {
 
     public static void main(String[] args) throws IOException {
-        // 创建RestHighLevelClient客户端实例
-        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+//        RestHighLevelClient client = EsClientUtil.getLocalClusterClient();
+        RestHighLevelClient client = Commons.getShinyClusterClient();
 
         try {
             GetAliasesRequest request = new GetAliasesRequest();
