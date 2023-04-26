@@ -1,7 +1,10 @@
 package com.yang.kafka.demo.offset;
 
+import com.yang.kafka.demo.offset.Commons;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

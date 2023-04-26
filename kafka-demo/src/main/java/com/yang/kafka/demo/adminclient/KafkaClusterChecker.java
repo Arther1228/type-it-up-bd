@@ -2,6 +2,7 @@ package com.yang.kafka.demo.adminclient;
 
 import java.util.Properties;
 
+import com.yang.kafka.demo.Commons;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.DescribeClusterResult;
@@ -12,13 +13,10 @@ import org.apache.kafka.clients.admin.DescribeClusterResult;
  */
 public class KafkaClusterChecker {
 
-    private static String local_cluster_server =  "http://localhost:9092";
-    private static String shiny_cluster_server =  "http://34.8.8.115:21005,http://34.8.8.109:21005,http://34.8.8.116:21005";
-
     public static void main(String[] args) {
         Properties props = new Properties();
-//        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, local_cluster_server);
-        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, shiny_cluster_server);
+//        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getLocal_cluster_server());
+        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getShiny_cluster_server());
         AdminClient adminClient = AdminClient.create(props);
         DescribeClusterResult describeCluster = adminClient.describeCluster();
         try {

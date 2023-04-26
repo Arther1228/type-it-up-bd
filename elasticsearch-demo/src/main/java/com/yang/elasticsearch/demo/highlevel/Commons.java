@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class Commons {
 
-    private static  String local_cluster_url = "http://34.8.99.80:9200";
+    private static  String local_cluster_url = "http://localhost:9200";
 
     private static String shiny_cluster_url = "http://34.8.8.122:24100,http://34.8.8.123:24100,http://34.8.8.124:24100," +
             "http://34.8.8.125:24100,http://34.8.8.126:24100,http://34.8.8.127:24100";
@@ -37,6 +37,11 @@ public class Commons {
         return client;
 
     }
+
+    public static HttpGet getLocalHttpClient(String indexName){
+        return initHttpGet(local_cluster_url, indexName);
+    }
+
 
     public static HttpGet getShinyHttpClient(String indexName){
         return initHttpGet(shiny_cluster_url, indexName);

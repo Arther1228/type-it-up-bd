@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @author admin
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 public class GetIndexMapExample {
 
-        private static String indexName = "my_index2";
+    private static String indexName = "test4";
 //    private static String indexName = "motorvehicle-2023.01.02";
 
     public static void main(String[] args) throws IOException {
@@ -27,15 +28,27 @@ public class GetIndexMapExample {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try{
 
-            HttpGet httpGet = Commons.getShinyHttpClient(indexName);
+//            HttpGet httpGet = Commons.getShinyHttpClient(indexName);
+            HttpGet httpGet = Commons.getLocalHttpClient(indexName);
             HttpResponse response = httpClient.execute(httpGet);
             HttpEntity httpEntity = response.getEntity();
             String result = httpEntity != null ? EntityUtils.toString(httpEntity) :null;
             JSONObject jsonObject = JSONUtil.parseObj(result);
 
             JSONObject fields = jsonObject.getJSONObject(indexName).getJSONObject("mappings").getJSONObject("doc").getJSONObject("properties");
-
-            System.out.println(fields);
+            HashMap<String, String> columnsMap = new HashMap<>(2);
+            fields.forEach((key, value) -> {
+                        JSONObject jsonValue  = (JSONObject)value;
+                        String type =  (String)jsonValue.get("type");
+                        if ("date".equals(type)) {
+                            String format =  (String)jsonValue.get("format");
+                            columnsMap.put(key, type + " | " + (format == null ? "" : format));
+                        } else {
+                            columnsMap.put(key, type);
+                        }
+                    }
+            );
+            System.out.println(columnsMap);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
