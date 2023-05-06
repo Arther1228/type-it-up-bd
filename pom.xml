@@ -16,7 +16,7 @@
         <module>redis-demo</module>
         <module>spark2x-demo</module>
         <module>elasticsearch-demo</module>
-        <!--<module>kerberos-demo</module>-->
+        <module>kerberos-demo</module>
     </modules>
 
     <properties>
