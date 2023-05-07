@@ -17,6 +17,7 @@
         <module>spark2x-demo</module>
         <module>elasticsearch-demo</module>
         <module>kerberos-demo</module>
+        <module>util-demo</module>
     </modules>
 
     <properties>
