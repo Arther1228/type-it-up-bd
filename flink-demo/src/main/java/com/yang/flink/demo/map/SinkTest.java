@@ -1,4 +1,4 @@
-package com.yang.flink.demo.sink;
+package com.yang.flink.demo.map;
 
 import com.yang.flink.demo.datasource.MysqlRichSourceFunction;
 import com.yang.flink.demo.datasource.UserInfo;

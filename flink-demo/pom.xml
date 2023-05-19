@@ -262,7 +262,7 @@
                         <configuration>
                             <!--<classifier>spring-boot</classifier>-->
                             <mainClass>
-                                com.yang.flink.demo.sink.SinkTest
+                                com.yang.flink.demo.map.SinkTest
                             </mainClass>
                         </configuration>
                     </execution>

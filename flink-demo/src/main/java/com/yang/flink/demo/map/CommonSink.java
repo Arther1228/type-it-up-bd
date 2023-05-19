@@ -1,4 +1,4 @@
-package com.yang.flink.demo.sink;
+package com.yang.flink.demo.map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
