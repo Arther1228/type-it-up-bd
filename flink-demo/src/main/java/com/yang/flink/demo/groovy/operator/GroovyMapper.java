@@ -1,6 +1,6 @@
 package com.yang.flink.demo.groovy.operator;
 
-import groovy.lang.GroovyClassLoader;
+import com.yang.flink.demo.groovy.load.LoadGroovyClassUtil;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -32,10 +32,8 @@ public class GroovyMapper {
         FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer("access_authority", new SimpleStringSchema(), properties);
         DataStream<String> kafkaStream = env.addSource(kafkaSource);
 
-        // 创建 GroovyClassLoader 实例
-        GroovyClassLoader classLoader = new GroovyClassLoader();
-        // 编译 Groovy 脚本文件并加载类
-        Class<?> mapFunctionClass = classLoader.parseClass(groovyScrpit);
+        // 获取 MapFunction 类
+        Class<?> mapFunctionClass = LoadGroovyClassUtil.parseClass(groovyScrpit);
         // 创建 MapFunction 实例
         MapFunction<String, String> mapFunction = (MapFunction<String, String>) mapFunctionClass.newInstance();
         DataStream<String> mapStream = kafkaStream.map(mapFunction);

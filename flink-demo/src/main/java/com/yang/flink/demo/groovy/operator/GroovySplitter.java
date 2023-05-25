@@ -1,6 +1,6 @@
 package com.yang.flink.demo.groovy.operator;
 
-import groovy.lang.GroovyClassLoader;
+import com.yang.flink.demo.groovy.load.LoadGroovyClassUtil;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.ProcessFunction;
@@ -35,10 +35,8 @@ public class GroovySplitter {
         FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer<>("access_authority", new SimpleStringSchema(), properties);
         DataStream<String> kafkaStream = env.addSource(kafkaSource);
 
-        // 创建 GroovyClassLoader 实例
-        GroovyClassLoader classLoader = new GroovyClassLoader();
         // 编译 Groovy 脚本文件并加载类
-        Class<?> processFunctionClass = classLoader.parseClass(groovyScrpit);
+        Class<?> processFunctionClass = LoadGroovyClassUtil.parseClass(groovyScrpit);
         // 创建 ProcessFunction 实例
         ProcessFunction<String, String> processFunction = (ProcessFunction<String, String>) processFunctionClass.newInstance();
 
