@@ -1,4 +1,4 @@
-package com.yang.flink.demo.groovy.load;
+package com.yang.flink.demo.groovy.util;
 
 import groovy.lang.GroovyClassLoader;
 import org.apache.commons.codec.digest.DigestUtils;

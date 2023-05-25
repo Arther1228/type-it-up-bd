@@ -1,6 +1,6 @@
 package com.yang.flink.demo.groovy.operator;
 
-import com.yang.flink.demo.groovy.load.LoadGroovyClassUtil;
+import com.yang.flink.demo.groovy.util.LoadGroovyClassUtil;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.ProcessFunction;
