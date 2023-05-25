@@ -1,7 +1,7 @@
 import com.alibaba.fastjson.JSONObject
 import org.apache.flink.api.common.functions.FilterFunction
 
-class MyFilterFunction implements FilterFunction<String> {
+class FieldFilterFunction implements FilterFunction<String> {
 
     def fieldName = "version"
 
