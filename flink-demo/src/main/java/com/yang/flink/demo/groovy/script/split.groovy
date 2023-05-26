@@ -3,7 +3,7 @@ import org.apache.flink.util.Collector
 import org.apache.flink.util.OutputTag
 import org.apache.flink.streaming.api.functions.*
 
-class SplitProcessFunction<String> extends ProcessFunction<String, String> {
+class SplitProcessFunction extends ProcessFunction<String, String> {
 
     def outputTags = [
             new OutputTag<JSONObject>("topic-A") {},

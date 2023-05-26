@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject
 import org.apache.flink.api.common.functions.MapFunction
 
 
-class SubStrMapFunction<String> implements MapFunction<String, String> {
+class SubStrMapFunction implements MapFunction<String, String> {
 
     def fieldName = "target_name"
     def startIndex = 0
