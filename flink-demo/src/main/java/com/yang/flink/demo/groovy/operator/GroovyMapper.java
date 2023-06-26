@@ -20,9 +20,6 @@ public class GroovyMapper {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        byte[] scriptBytes = Files.readAllBytes(Paths.get("D:\\ylc\\code\\type-it-up-bd\\flink-demo\\src\\main\\java\\com\\yang\\flink\\demo\\groovy\\script\\map.groovy"));
-        String groovyScrpit = new String(scriptBytes, StandardCharsets.UTF_8);
-
         // Kafka配置信息
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "localhost:9092");
@@ -32,8 +29,11 @@ public class GroovyMapper {
         FlinkKafkaConsumer<String> kafkaSource = new FlinkKafkaConsumer("access_authority", new SimpleStringSchema(), properties);
         DataStream<String> kafkaStream = env.addSource(kafkaSource);
 
+        byte[] scriptBytes = Files.readAllBytes(Paths.get("D:\\ylc\\code\\type-it-up-bd\\flink-demo\\src\\main\\java\\com\\yang\\flink\\demo\\groovy\\script\\map.groovy"));
+        String groovyScript = new String(scriptBytes, StandardCharsets.UTF_8);
+
         // 获取 MapFunction 类
-        Class<?> mapFunctionClass = LoadGroovyClassUtil.parseClass(groovyScrpit);
+        Class<?> mapFunctionClass = LoadGroovyClassUtil.parseClass(groovyScript);
         // 创建 MapFunction 实例
         MapFunction<String, String> mapFunction = (MapFunction<String, String>) mapFunctionClass.newInstance();
         DataStream<String> mapStream = kafkaStream.map(mapFunction);
