@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author admin
- * //TODO 代码有问题
+ * //TODO 代码有问题，windows删除会把kafka集群搞挂
  */
 public class KafkaTopicDeletor {
 
