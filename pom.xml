@@ -17,7 +17,6 @@
         <module>spark2x-demo</module>
         <module>elasticsearch-demo</module>
         <module>kerberos-demo</module>
-        <module>util-demo</module>
         <module>clickhouse-demo</module>
         <module>hbase-demo</module>
     </modules>

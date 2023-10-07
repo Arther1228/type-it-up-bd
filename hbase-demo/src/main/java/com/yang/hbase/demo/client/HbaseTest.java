@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author arvin
+ * Windows Hbase Docker实践 https://blog.csdn.net/qq_34387470/article/details/120776587
  */
 public class HbaseTest {
     private static Admin admin;
@@ -115,6 +116,21 @@ public class HbaseTest {
         return student;
     }
 
+
+    public static void tableList() throws IOException {
+        admin = initHbase().getAdmin();
+
+        // Getting all the list of tables using HBaseAdmin object
+        HTableDescriptor[] tableDescriptor = admin.listTables();
+
+        // printing all the table names.
+        for (int i = 0; i < tableDescriptor.length; i++) {
+            System.out.println(tableDescriptor[i].getNameAsString());
+        }
+
+    }
+
+
     // 查询指定Cell数据
     public static String getCell(TableName tableName, String rowKey, String cf, String column) throws IOException {
         Get get = new Get(Bytes.toBytes(rowKey));
@@ -135,21 +151,25 @@ public class HbaseTest {
 
     public static void main(String[] args) throws IOException {
 
-        String table = "student";
-        createTable(getTbName(table), new String[]{COLUMNS_FAMILY_1, COLUMNS_FAMILY_2});
+        tableList();
+
+//        String table = "student";
+//        createTable(getTbName(table), new String[]{COLUMNS_FAMILY_1, COLUMNS_FAMILY_2});
 //        deleteTable(getTbName(table));
 
-        Student student = new Student();
-        student.setId("1");
-        student.setName("Arvin");
-        student.setAge("18");
-        insertData(getTbName(table), student);
+//        Student student = new Student();
+//        student.setId("1");
+//        student.setName("Arvin");
+//        student.setAge("18");
+//        insertData(getTbName(table), student);
 
-        //        singleGet(getTbName(table), "2");
+//        singleGet(getTbName(table), "2");
 
 //        deleteData(getTbName(table), "1");
 
-        getCell(getTbName(table), "2", "cf1", "name");
+//        getCell(getTbName(table), "2", "cf1", "name");
+
+
     }
 
     public static class Student {
