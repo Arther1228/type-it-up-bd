@@ -1,10 +1,12 @@
 package com.yang.hbase.demo.phoenix;
 
 import org.junit.Test;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PhoenixDemo {
 
@@ -70,4 +72,44 @@ public class PhoenixDemo {
         statement.close();
         connection.close();
     }
+
+    /**
+     * 获取Phoenix中的表(系统表除外)
+     */
+    @Test
+    public void getTables() throws Exception {
+        List<String> tables = new ArrayList<>();
+        Connection connection = DriverManager.getConnection("jdbc:phoenix:127.0.0.1:2181");
+        DatabaseMetaData metaData = connection.getMetaData();
+        String[] types = {"TABLE"}; //"SYSTEM TABLE"
+        ResultSet resultSet = metaData.getTables(null, null, null, types);
+        while (resultSet.next()) {
+            tables.add(resultSet.getString("TABLE_NAME"));
+        }
+
+        tables.stream().forEach(System.out::println);
+    }
+
+    /**
+     * 获取表中的所有数据
+     */
+    @Test
+    public void getList() throws Exception {
+        String tableName = "DEMO";
+        String sql = "SELECT * FROM " + tableName;
+        Connection connection = DriverManager.getConnection("jdbc:phoenix:127.0.0.1:2181");
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        List<Map<String, String>> resultList = new ArrayList<>();
+        while (resultSet.next()) {
+            Map<String, String> result = new HashMap<>();
+            for (int i = 1, len = resultSetMetaData.getColumnCount(); i <= len; i++) {
+                result.put(resultSetMetaData.getColumnName(i), resultSet.getString(i));
+            }
+            resultList.add(result);
+        }
+        resultList.stream().forEach(System.out::println);
+    }
+
 }
