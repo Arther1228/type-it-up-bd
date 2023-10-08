@@ -13,7 +13,7 @@ import java.util.List;
  * @author arvin
  * Windows Hbase Docker实践 https://blog.csdn.net/qq_34387470/article/details/120776587
  */
-public class HbaseTest {
+public class HbaseAPI {
     private static Admin admin;
     private static final String COLUMNS_FAMILY_1 = "cf1";
     private static final String COLUMNS_FAMILY_2 = "cf2";
@@ -147,29 +147,6 @@ public class HbaseTest {
         }
         System.out.println("Value is: " + rst);
         return rst;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        tableList();
-
-//        String table = "student";
-//        createTable(getTbName(table), new String[]{COLUMNS_FAMILY_1, COLUMNS_FAMILY_2});
-//        deleteTable(getTbName(table));
-
-//        Student student = new Student();
-//        student.setId("1");
-//        student.setName("Arvin");
-//        student.setAge("18");
-//        insertData(getTbName(table), student);
-
-//        singleGet(getTbName(table), "2");
-
-//        deleteData(getTbName(table), "1");
-
-//        getCell(getTbName(table), "2", "cf1", "name");
-
-
     }
 
     public static class Student {
