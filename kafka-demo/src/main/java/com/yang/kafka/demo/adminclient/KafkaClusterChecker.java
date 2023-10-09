@@ -15,8 +15,8 @@ public class KafkaClusterChecker {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-//        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getLocal_cluster_server());
-        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getShiny_cluster_server());
+//        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getLocalClusterServer());
+        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, Commons.getShinyClusterServer());
         AdminClient adminClient = AdminClient.create(props);
         DescribeClusterResult describeCluster = adminClient.describeCluster();
         try {

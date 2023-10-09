@@ -17,8 +17,8 @@ public class KafkaProducerExample {
     public static void main(String[] args) {
 
         // 设置 Producer 属性
-//        Properties props = Commons.initProperties(Commons.getLocal_cluster_server());
-        Properties props = Commons.initProperties(Commons.getShiny_cluster_server());
+//        Properties props = Commons.initProperties(Commons.getLocalClusterServer());
+        Properties props = Commons.initProperties(Commons.getShinyClusterServer());
         // 创建生产者实例
         Producer<String, String> producer = new KafkaProducer<>(props);
         // 构造一个 JSON 对象作为消息体

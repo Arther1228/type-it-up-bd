@@ -12,11 +12,11 @@ public class Commons {
     private static int numPartitions = 3;
     private static short replicationFactor = 1;
 
-    public static String getLocal_cluster_server() {
+    public static String getLocalClusterServer() {
         return local_cluster_server;
     }
 
-    public static String getShiny_cluster_server() {
+    public static String getShinyClusterServer() {
         return shiny_cluster_server;
     }
 

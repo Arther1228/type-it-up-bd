@@ -27,7 +27,7 @@ public class KafkaTopicCreator {
 
     public static void main(String[] args) {
         String topicName = "clicks2";
-        String bootstrapServers = Commons.getShiny_cluster_server();
+        String bootstrapServers = Commons.getShinyClusterServer();
         Properties props = Commons.initProperties(bootstrapServers);
         try {
             AdminClient adminClient = AdminClient.create(props);

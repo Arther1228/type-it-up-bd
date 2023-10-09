@@ -16,7 +16,7 @@ public class KafkaClientSubscribeExample {
     public static void main(String[] args) {
 
         String topicName = TOPIC; // 设置要消费的主题名称
-        Properties props = Commons.initProperties(Commons.getShiny_cluster_server());
+        Properties props = Commons.initProperties(Commons.getShinyClusterServer());
         // 创建KafkaConsumer实例
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         // 订阅主题
