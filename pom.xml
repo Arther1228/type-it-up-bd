@@ -20,6 +20,8 @@
         <module>clickhouse-demo</module>
         <module>hbase-demo</module>
         <module>zookeeper-demo</module>
+        <module>hdfs-demo</module>
+        <module>yarn-demo</module>
     </modules>
 
     <properties>
