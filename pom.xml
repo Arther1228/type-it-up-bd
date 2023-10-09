@@ -19,6 +19,7 @@
         <module>kerberos-demo</module>
         <module>clickhouse-demo</module>
         <module>hbase-demo</module>
+        <module>zookeeper-demo</module>
     </modules>
 
     <properties>
