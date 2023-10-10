@@ -23,7 +23,7 @@ public class ZooKeeperDemo {
      */
     public void ls(String path) throws Exception {
         System.out.println(path);
-        ZooKeeper zk = new ZooKeeper("34.8.8.163:2181",5000,null);
+        ZooKeeper zk = new ZooKeeper("localhost:2181",5000,null);
         List<String> list = zk.getChildren(path,null);
         //判断是否有子节点
         if(list.isEmpty() || list == null){
@@ -41,7 +41,7 @@ public class ZooKeeperDemo {
 
 
     public static void main(String[] args) throws Exception {
-        String zkConnectString = "34.8.8.4:24002"; // ZooKeeper服务器地址和端口
+        String zkConnectString = "localhost:2181"; // ZooKeeper服务器地址和端口
         int sessionTimeout = 3000; // 会话超时时间（毫秒）
 
         ZooKeeper zooKeeper = new ZooKeeper(zkConnectString, sessionTimeout, null);

@@ -1,6 +1,6 @@
-package com.yang.hbase.demo.zookeeper;
+package com.yang.kerberos.demo.zookeeper;
 
-import com.yang.hbase.demo.util.FusionInsightLogin;
+import com.yang.kerberos.demo.util.FusionInsightLogin;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;

@@ -1,6 +1,6 @@
-package com.yang.hbase.demo.phoenix;
+package com.yang.kerberos.demo.hbase;
 
-import com.yang.hbase.demo.util.FusionInsightLogin;
+import com.yang.kerberos.demo.util.FusionInsightLogin;
 import org.junit.Test;
 
 import java.sql.*;

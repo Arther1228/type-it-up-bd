@@ -1,6 +1,6 @@
-package com.yang.hbase.demo.client;
+package com.yang.kerberos.demo.hbase;
 
-import com.yang.hbase.demo.util.FusionInsightLogin;
+import com.yang.kerberos.demo.util.FusionInsightLogin;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;

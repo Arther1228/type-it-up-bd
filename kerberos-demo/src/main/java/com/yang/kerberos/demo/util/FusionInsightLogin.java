@@ -1,4 +1,4 @@
-package com.yang.hbase.demo.util;
+package com.yang.kerberos.demo.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;

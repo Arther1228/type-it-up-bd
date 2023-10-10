@@ -1,4 +1,4 @@
-package com.yang.hbase.demo.util;
+package com.yang.kerberos.demo.util;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.UserGroupInformation;
