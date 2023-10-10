@@ -29,6 +29,7 @@
         </dependency>
         -->
 
+        <!--华为定制的jar包，无法直接访问未认证的 HBase -->
         <!-- hbase -->
         <dependency>
             <groupId>org.apache.hbase</groupId>

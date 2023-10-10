@@ -21,8 +21,8 @@ public class HbaseAPITest {
 
     @Test
     public void tableList() throws IOException {
-//        HbaseAPI.tableList();
-        HDHbaseAPI.tableList();
+        HbaseAPI.tableList();
+//        HDHbaseAPI.tableList();
     }
 
     @Test
