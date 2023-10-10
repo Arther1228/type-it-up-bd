@@ -7,17 +7,17 @@ import java.util.Properties;
  */
 public class Commons {
 
-    private static String local_cluster_server =  "http://localhost:9092";
-    private static String shiny_cluster_server =  "http://34.8.8.115:21005,http://34.8.8.109:21005,http://34.8.8.116:21005";
+    private static String localClusterServer =  "http://localhost:9092";
+    private static String shinyClusterServer =  "http://34.8.8.115:21005,http://34.8.8.109:21005,http://34.8.8.116:21005";
     private static int numPartitions = 3;
     private static short replicationFactor = 1;
 
     public static String getLocalClusterServer() {
-        return local_cluster_server;
+        return localClusterServer;
     }
 
     public static String getShinyClusterServer() {
-        return shiny_cluster_server;
+        return shinyClusterServer;
     }
 
     public static int getNumPartitions() {

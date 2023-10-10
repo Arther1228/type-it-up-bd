@@ -1,5 +1,6 @@
-package com.yang.zookeeper.demo;
+package com.yang.hbase.demo.zookeeper;
 
+import com.yang.hbase.demo.util.FusionInsightLogin;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -22,8 +23,12 @@ public class ZooKeeperDemo {
      * 列出指定path下所有孩子
      */
     public void ls(String path) throws Exception {
+
+        FusionInsightLogin.initAndLogin();
+
         System.out.println(path);
-        ZooKeeper zk = new ZooKeeper("34.8.8.163:2181",5000,null);
+
+        ZooKeeper zk = new ZooKeeper("34.8.8.4:24002",5000,null);
         List<String> list = zk.getChildren(path,null);
         //判断是否有子节点
         if(list.isEmpty() || list == null){

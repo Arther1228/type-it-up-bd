@@ -14,7 +14,7 @@ public class YARNExample {
     public static void main(String[] args) throws IOException, YarnException {
         // 设置Hadoop配置
         Configuration conf = new Configuration();
-        conf.set("yarn.resourcemanager.hostname", "localhost"); // 根据您的YARN配置更改主机名
+        conf.set("yarn.resourcemanager.hostname", "34.8.8.5"); // 根据您的YARN配置更改主机名
 
         // 创建YARN客户端
         YarnClient yarnClient = YarnClient.createYarnClient();

@@ -11,7 +11,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class KafkaClientSubscribeExample {
 
-    private final static String TOPIC = "motorVehicleDisposition";
+    private final static String TOPIC = "motorVehicle";
 
     public static void main(String[] args) {
 
