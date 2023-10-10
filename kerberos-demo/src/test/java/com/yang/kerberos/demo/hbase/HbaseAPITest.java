@@ -1,6 +1,5 @@
-package java.com.yang.kerberos.demo.hbase;
+package com.yang.kerberos.demo.hbase;
 
-import com.yang.kerberos.demo.hbase.HDHbaseAPI;
 import org.junit.Test;
 
 import java.io.IOException;

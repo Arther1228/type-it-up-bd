@@ -1,15 +1,11 @@
 package com.yang.kafka.demo.offset;
 
-import com.yang.kafka.demo.offset.Commons;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.LongDeserializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.*;
 
 /**
@@ -28,7 +24,7 @@ public class SetOffsetOnRebalancedDemo {
 
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
+                ConsumerRecords<String, String> records = consumer.poll(5000);
                 for (ConsumerRecord<String, String> record : records) {
                     System.out.println(record.offset() + ":" + record.partition() + ":" + record.timestamp());
                 }
@@ -61,7 +57,7 @@ public class SetOffsetOnRebalancedDemo {
 
                 SaveOffsetOnRebalanced saveOffsetOnRebalanced = new SaveOffsetOnRebalanced(consumer, topic, fallbackMilliseconds);
                 consumer.subscribe(Collections.singleton(topic), saveOffsetOnRebalanced);
-                consumer.poll(Duration.ofMillis(0));
+                consumer.poll(0);
             } catch (Exception e) {
                 System.out.println("kafka设置从指定时间戳开始消费 SetOffset 出错");
             }
@@ -78,11 +74,6 @@ public class SetOffsetOnRebalancedDemo {
         private KafkaConsumer<String, String> consumer;
         private String topic;
         private long fallbackMilliseconds;
-
-        @Override
-        public void onPartitionsLost(Collection<TopicPartition> partitions) {
-
-        }
 
         public SaveOffsetOnRebalanced(KafkaConsumer<String, String> consumer, String topic, long fallbackMilliseconds) {
             this.consumer = consumer;

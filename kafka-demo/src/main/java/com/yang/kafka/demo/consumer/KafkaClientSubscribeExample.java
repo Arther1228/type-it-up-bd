@@ -23,7 +23,7 @@ public class KafkaClientSubscribeExample {
         consumer.subscribe(Arrays.asList(topicName));
         // 循环获取消息，直到用户强制退出
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
+            ConsumerRecords<String, String> records = consumer.poll(2000);
             for (ConsumerRecord<String, String> record : records) {
                 System.out.printf("offset = %d, key = %s, value = %s\n", record.offset(), record.key(), record.value());
             }

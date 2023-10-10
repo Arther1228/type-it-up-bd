@@ -7,7 +7,6 @@ import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -74,7 +73,7 @@ public class SetTimestampOffsetConsumerDemo {
         int count = 0;
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
+                ConsumerRecords<String, String> records = consumer.poll(5000);
                 for (ConsumerRecord<String, String> record : records) {
                     count++;
                     System.out.println(record.offset() + ":" + record.partition() + ":" + record.timestamp());

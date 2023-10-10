@@ -17,10 +17,11 @@
     <dependencies>
 
         <!-- kafka -->
-       <dependency>
+        <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>1.1.0</version>
+            <version>0.11.0.1</version>
+            <classifier>huawei</classifier>
         </dependency>
 
         <!--华为定制的jar包，无法直接访问未认证的 HBase -->

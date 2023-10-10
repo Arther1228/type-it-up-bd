@@ -14,8 +14,8 @@ public class KafkaTopicLister {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", Commons.getLocalClusterServer());
-//        props.put("bootstrap.servers", Commons.getShinyClusterServer());
+        //      props.put("bootstrap.servers", Commons.getLocalClusterServer());
+        props.put("bootstrap.servers", Commons.getShinyClusterServer());
         try (AdminClient client = AdminClient.create(props)) {
             ListTopicsResult topics = client.listTopics();
             topics.names().get().forEach(System.out::println);
