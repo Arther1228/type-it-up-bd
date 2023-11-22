@@ -1,5 +1,9 @@
 package com.yang.hbase.demo.phoenix;
 
+import org.apache.phoenix.compile.ColumnProjector;
+import org.apache.phoenix.compile.RowProjector;
+import org.apache.phoenix.exception.PhoenixParserException;
+import org.apache.phoenix.jdbc.PhoenixResultSet;
 import org.junit.Test;
 
 import java.sql.*;
@@ -41,9 +45,9 @@ public class PhoenixDemo {
         PreparedStatement statement = connection.prepareStatement("upsert into xxx values(?,?,?)");
 
         //4、给参数赋值
-        statement.setString(1,"1001");
-        statement.setString(2,"zhangsan");
-        statement.setString(3,"20");
+        statement.setString(1,"1002");
+        statement.setString(2,"zhangsan2");
+        statement.setString(3,"21");
 
         //5、执行插入,需要手动提交，不然无法插入
         statement.execute();
@@ -74,6 +78,39 @@ public class PhoenixDemo {
     }
 
     /**
+     * JAVA使用Phoenix连接操作HBase工具类__获取表字段信息等操作 https://blog.csdn.net/Remember__Peng/article/details/104054914
+     * @throws SQLException
+     */
+    @Test
+    public void getTableColums() throws SQLException {
+
+        String tableName = "XXX";
+        String schema = "";
+        Connection connection = DriverManager.getConnection("jdbc:phoenix:127.0.0.1:2181");
+
+        try {
+            //获取表中的字段信息
+            PhoenixResultSet resultSet = (PhoenixResultSet)ReflectionUtil.sqlPhoenix(connection, schema, ("select * from " + tableName));
+            //这里用到了JAVA反射，因为字段信息集合在jar依赖中是private类型，所以通过反射来获取到他的字段名称信息【工具类在下方】
+            RowProjector row = (RowProjector) ReflectionUtil.getPrivateField(resultSet, "rowProjector");
+            List<? extends ColumnProjector> column = row.getColumnProjectors();
+            //String[] arry = new String[column.size()];
+            for (int i = 0; i < column.size(); i++) {
+                System.out.println("这是字段信息 ====>" + column.get(i).getName());
+                //arry[i] = column.get(i).getName();
+            }
+        }catch (PhoenixParserException e){
+            System.out.println("不允许查询的：" + tableName);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("*****************分割符************");
+        }
+    }
+
+    /**
      * 获取Phoenix中的表(系统表除外)
      */
     @Test
@@ -94,8 +131,8 @@ public class PhoenixDemo {
      * 获取表中的所有数据
      */
     @Test
-    public void getList() throws Exception {
-        String tableName = "DEMO";
+    public void getDataList() throws Exception {
+        String tableName = "XXX";
         String sql = "SELECT * FROM " + tableName;
         Connection connection = DriverManager.getConnection("jdbc:phoenix:127.0.0.1:2181");
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
