@@ -1,10 +1,8 @@
 package com.yang.kafka.demo.offset;
 
+import com.yang.kafka.demo.util.ConsumerUtil;
 import com.yang.kafka.demo.util.KafkaUtil;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
@@ -18,7 +16,6 @@ import java.util.*;
 /**
  * @author yangliangchuang 2022/9/5 18:43
  * * 尝试使用时间戳完成偏移量设置
- * * https://blog.csdn.net/weixin_38251332/article/details/120081411
  */
 public class SetTimestampOffsetDemo {
 
@@ -29,7 +26,12 @@ public class SetTimestampOffsetDemo {
 
     final static Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
 
-    public static void setOffset(Consumer<String, String> consumer, long timestamp, String topic) {
+    /**
+     * https://blog.csdn.net/weixin_38251332/article/details/120081411
+     */
+    @Test
+    public static void setOffset() {
+        long timestamp = 1662384147000L;
         //===========================
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
         Instant instant = Instant.ofEpochMilli(timestamp);
@@ -40,7 +42,7 @@ public class SetTimestampOffsetDemo {
         /*这两个方法需要绑定使用，否则consumer.assignment()获取的数据为空
         consumer.assign(Arrays.asList(new TopicPartition("t7", 2)));
         Set<TopicPartition> partitionInfos = consumer.assignment();*/
-        List<PartitionInfo> partitionInfos = consumer.partitionsFor(topic);
+        List<PartitionInfo> partitionInfos = consumer.partitionsFor(TOPIC);
         if (null != partitionInfos && partitionInfos.size() > 0) {
             Map<TopicPartition, Long> map = new HashMap<>(8);
             for (PartitionInfo p : partitionInfos) {
@@ -72,30 +74,51 @@ public class SetTimestampOffsetDemo {
 
         }
         //时间戳设置完毕
-        //=========================
-        int count = 0;
 
-        try {
-            while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(5000);
-                for (ConsumerRecord<String, String> record : records) {
-                    count++;
-                    System.out.println(record.offset() + ":" + record.partition() + ":" + record.timestamp());
-                }
-                Thread.sleep(1);
-
-                if (count % 4 == 0) {
-                    consumer.commitSync();
-                    count = 0;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        ConsumerUtil.collect(TOPIC, groupId);
     }
 
+    /**
+     * https://www.cnblogs.com/caoweixiong/p/11684370.html
+     */
     @Test
-    public void consumer() {
-        setOffset(consumer, 1662384147000L, TOPIC);
+    public void setTimeStampOffset() {
+
+        Properties props = SetFixOffsetDemo.initConfig();
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Arrays.asList(TOPIC));
+
+        Set<TopicPartition> assignment = new HashSet<>();
+        // 在poll()方法内部执行分区分配逻辑，该循环确保分区已被分配。
+        // 当分区消息为0时进入此循环，如果不为0，则说明已经成功分配到了分区。
+
+        while (assignment.size() == 0) {
+            consumer.poll(100);
+            // assignment()方法是用来获取消费者所分配到的分区消息的
+            // assignment的值为：topic-demo-3, topic-demo-0, topic-demo-2, topic-demo-1
+            assignment = consumer.assignment();
+        }
+        System.out.println(assignment);
+
+        Map<TopicPartition, Long> timestampToSearch = new HashMap<>();
+        for (TopicPartition tp : assignment) {
+            // 设置查询分区时间戳的条件：获取当前时间前一天之后的消息
+            timestampToSearch.put(tp, System.currentTimeMillis() - 24 * 3600 * 1000);
+        }
+
+        // timestampToSearch的值为{topic-demo-0=1563709541899, topic-demo-2=1563709541899, topic-demo-1=1563709541899}
+        Map<TopicPartition, OffsetAndTimestamp> offsets = consumer.offsetsForTimes(timestampToSearch);
+
+        for (TopicPartition tp : assignment) {
+            // 获取该分区的offset以及timestamp
+            OffsetAndTimestamp offsetAndTimestamp = offsets.get(tp);
+            // 如果offsetAndTimestamp不为null，则证明当前分区有符合时间戳条件的消息
+            if (offsetAndTimestamp != null) {
+                consumer.seek(tp, offsetAndTimestamp.offset());
+            }
+        }
+
+        ConsumerUtil.collect(TOPIC, groupId);
     }
+
 }

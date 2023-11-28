@@ -9,16 +9,16 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.Test;
 
-public class KafkaClientSubscribeExample {
+public class SubscribeExample {
 
     private final static String TOPIC = "motorVehicle";
 
+    private final static Properties props = KafkaUtil.initProperties(KafkaUtil.getShinyClusterServer());
+    // 创建KafkaConsumer实例
+    private final static KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+
     @Test
     public void subscribe() {
-
-        Properties props = KafkaUtil.initProperties(KafkaUtil.getShinyClusterServer());
-        // 创建KafkaConsumer实例
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         // 订阅主题
         consumer.subscribe(Arrays.asList(TOPIC));
         // 循环获取消息，直到用户强制退出
@@ -29,4 +29,5 @@ public class KafkaClientSubscribeExample {
             }
         }
     }
+
 }

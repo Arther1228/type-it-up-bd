@@ -24,7 +24,7 @@ public class TopicLagSearch {
      * @return
      */
     @Test
-    public void getLag() {
+    public void getConsumerLag() {
         long startTime = System.currentTimeMillis();
 
         KafkaConsumer consumer = (KafkaConsumer) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
@@ -36,7 +36,6 @@ public class TopicLagSearch {
             TopicPartition topicPartition = new TopicPartition(partitionInfo.topic(), partitionInfo.partition());
             topicPartitionList.add(topicPartition);
         }
-
 
         //查询 log size
         Map<Integer, Long> endOffsetMap = new HashMap<>();
