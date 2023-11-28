@@ -1,13 +1,12 @@
 package com.yang.kafka.demo.lag;
 
 import com.yang.kafka.demo.util.KafkaUtil;
+import com.yang.kafka.demo.util.PartitionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,7 @@ import java.util.Map;
 @Slf4j
 public class TopicOffsetSearch {
 
-    private final static String topic = "KK-JJ";
-
+    private final static String topic = "motorVehicle";
     private final static KafkaConsumer consumer = (KafkaConsumer) KafkaUtil.createEmptyConsumer(KafkaUtil.getShinyClusterServer());
 
     /**
@@ -30,12 +28,7 @@ public class TopicOffsetSearch {
     public Map<Integer, Long> searchEndOffset() {
 
         //查询 topic partitions
-        List<TopicPartition> topicPartitionList = new ArrayList<>();
-        List<PartitionInfo> partitionInfoList = consumer.partitionsFor(topic);
-        for (PartitionInfo partitionInfo : partitionInfoList) {
-            TopicPartition topicPartition = new TopicPartition(partitionInfo.topic(), partitionInfo.partition());
-            topicPartitionList.add(topicPartition);
-        }
+        List<TopicPartition> topicPartitionList = PartitionUtil.getTopicPartitionList(consumer, topic);
 
         //查询 log size
         Map<Integer, Long> endOffsetMap = new HashMap<>();
@@ -56,12 +49,7 @@ public class TopicOffsetSearch {
     public Map<Integer, Long> searchBeginOffset() {
 
         //查询 topic partitions
-        List<TopicPartition> topicPartitionList = new ArrayList<>();
-        List<PartitionInfo> partitionInfoList = consumer.partitionsFor(topic);
-        for (PartitionInfo partitionInfo : partitionInfoList) {
-            TopicPartition topicPartition = new TopicPartition(partitionInfo.topic(), partitionInfo.partition());
-            topicPartitionList.add(topicPartition);
-        }
+        List<TopicPartition> topicPartitionList = PartitionUtil.getTopicPartitionList(consumer, topic);
 
         //查询 log size
         Map<Integer, Long> beginningOffsetMap = new HashMap<>();

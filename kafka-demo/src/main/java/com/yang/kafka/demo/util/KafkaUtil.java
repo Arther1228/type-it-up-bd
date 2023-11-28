@@ -43,7 +43,7 @@ public class KafkaUtil {
         props.put("linger.ms", 1);
         props.put("buffer.memory", 33554432);
         // 消费者组ID
-        props.put("group.id", "test-group");
+//        props.put("group.id", "test-group");
         // 开启自动提交offset
         props.put("enable.auto.commit", "true");
         // 自动提交offset的间隔时间

@@ -1,10 +1,10 @@
 package com.yang.kafka.demo.lag;
 
 import com.yang.kafka.demo.util.KafkaUtil;
+import com.yang.kafka.demo.util.PartitionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
-import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.junit.Test;
 
@@ -20,6 +20,8 @@ public class TopicLagSearch {
     private final static String topic = "wifiData";
     private final static String groupId = "wifi-kafka-hbase";
 
+    KafkaConsumer consumer = (KafkaConsumer) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
+
     /**
      * @return
      */
@@ -27,15 +29,8 @@ public class TopicLagSearch {
     public void getConsumerLag() {
         long startTime = System.currentTimeMillis();
 
-        KafkaConsumer consumer = (KafkaConsumer) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
-
         //查询 topic partitions
-        List<TopicPartition> topicPartitionList = new ArrayList<>();
-        List<PartitionInfo> partitionInfoList = consumer.partitionsFor(topic);
-        for (PartitionInfo partitionInfo : partitionInfoList) {
-            TopicPartition topicPartition = new TopicPartition(partitionInfo.topic(), partitionInfo.partition());
-            topicPartitionList.add(topicPartition);
-        }
+        List<TopicPartition> topicPartitionList = PartitionUtil.getTopicPartitionList(consumer, topic);
 
         //查询 log size
         Map<Integer, Long> endOffsetMap = new HashMap<>();

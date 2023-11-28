@@ -2,6 +2,7 @@ package com.yang.kafka.demo.offset;
 
 import com.yang.kafka.demo.util.ConsumerUtil;
 import com.yang.kafka.demo.util.KafkaUtil;
+import com.yang.kafka.demo.util.PartitionUtil;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
@@ -33,6 +34,7 @@ public class SetTimestampOffsetDemo {
      */
     @Test
     public void setOffsetByTimeStamp() {
+
         long timestamp = 1662384147000L;
         //===========================
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
@@ -85,21 +87,7 @@ public class SetTimestampOffsetDemo {
     @Test
     public void setTimeStampOffset() {
 
-        Properties props = SetFixOffsetDemo.initConfig();
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Arrays.asList(TOPIC));
-
-        Set<TopicPartition> assignment = new HashSet<>();
-        // 在poll()方法内部执行分区分配逻辑，该循环确保分区已被分配。
-        // 当分区消息为0时进入此循环，如果不为0，则说明已经成功分配到了分区。
-
-        while (assignment.size() == 0) {
-            consumer.poll(100);
-            // assignment()方法是用来获取消费者所分配到的分区消息的
-            // assignment的值为：topic-demo-3, topic-demo-0, topic-demo-2, topic-demo-1
-            assignment = consumer.assignment();
-        }
-        System.out.println(assignment);
+        Set<TopicPartition> assignment = PartitionUtil.getAssignment(consumer, TOPIC);
 
         Map<TopicPartition, Long> timestampToSearch = new HashMap<>();
         for (TopicPartition tp : assignment) {

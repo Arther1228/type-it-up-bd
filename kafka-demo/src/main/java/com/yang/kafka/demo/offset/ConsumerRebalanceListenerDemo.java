@@ -14,14 +14,14 @@ import java.util.*;
  * @author yangliangchuang 2023/4/24 11:20
  * 来自 kk-filter
  */
-public class SetOffsetOnRebalancedDemo {
+public class ConsumerRebalanceListenerDemo {
 
-    private final static String TOPIC = "motorVehicleDisposition";
-    private final static String groupId = "test1";
+    private final static String TOPIC = "motorVehicle";
+    private final static String groupId = "test3";
 
     @Test
     public void collect() {
-        String startTime = "20230424";
+        String startTime = "20231124";
         KafkaConsumer<String, String> consumer = (KafkaConsumer<String, String>) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
         SetOffset setOffset = new SetOffset(consumer, TOPIC, startTime);
         setOffset.submitOffset();

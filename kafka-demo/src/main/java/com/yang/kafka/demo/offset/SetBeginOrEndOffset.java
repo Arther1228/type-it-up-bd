@@ -19,13 +19,14 @@ import java.util.List;
 public class SetBeginOrEndOffset {
 
     private final static String TOPIC = "motorVehicleDisposition";
-    private final static String groupId = "test1";
+    private final static String groupId = "test3";
 
     final static Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
     final static Collection<PartitionInfo> partitionInfos = consumer.partitionsFor(TOPIC);
 
+
     /**
-     * 获取某个Topic的所有分区以及分区最新的Offset
+     * 获取某个Topic的所有分区以及分区最早的Offset的开始消费
      */
     @Test
     public void setBeginOffset() {
@@ -36,23 +37,27 @@ public class SetBeginOrEndOffset {
             System.out.println(str);
             tp.add(new TopicPartition(TOPIC, str.partition()));
             consumer.assign(tp);
-            consumer.seekToEnd(tp);
+            consumer.seekToBeginning(tp);
             System.out.println("Partition " + str.partition() + " 's latest offset is '" + consumer.position(new TopicPartition(TOPIC, str.partition())));
         });
 
         ConsumerUtil.pollRecords(consumer);
     }
 
+    /**
+     * 获取某个Topic的所有分区以及分区最新的Offset的开始消费
+     */
     @Test
     public void setEndOffset() {
+
         System.out.println("Get the partition info as below:");
         List<TopicPartition> tp = new ArrayList<TopicPartition>();
         partitionInfos.forEach(str -> {
             System.out.println("Partition Info:");
             System.out.println(str);
             tp.add(new TopicPartition(TOPIC, str.partition()));
-//            consumer.assign(tp);
-            consumer.seekToBeginning(tp);
+            consumer.assign(tp);
+            consumer.seekToEnd(tp);
             System.out.println("Partition " + str.partition() + " 's latest offset is '" + consumer.position(new TopicPartition(TOPIC, str.partition())));
         });
 
