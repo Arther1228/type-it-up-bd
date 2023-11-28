@@ -1,5 +1,6 @@
 package com.yang.kafka.demo.adminclient;
 
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DeleteTopicsOptions;
 import org.apache.kafka.common.errors.UnknownTopicOrPartitionException;
@@ -12,6 +13,8 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author admin
  * //TODO 代码有问题，windows删除会把kafka集群搞挂
+ * //TODO 有可能需要使用SASL认证之后，才能删除雪亮Kafka中的Topic
+ *
  */
 public class KafkaTopicDeletor {
 
@@ -50,4 +53,10 @@ public class KafkaTopicDeletor {
         }
     }
 
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        String topicName = "click1";
+
+        deleteTopic(KafkaUtil.getLocalClusterServer(), topicName);
+    }
 }

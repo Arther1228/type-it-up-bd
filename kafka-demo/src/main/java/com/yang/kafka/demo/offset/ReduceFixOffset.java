@@ -1,7 +1,8 @@
 package com.yang.kafka.demo.offset;
 
+import com.yang.kafka.demo.util.KafkaUtil;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 
@@ -15,15 +16,16 @@ import java.util.Map;
  * 根据固定的offset差值设置偏移量，执行方法在测试包下 OffsetTest.java
  * https://blog.csdn.net/jj89929665/article/details/121681927
  */
-public class ReduceNumberOffsetConsumerDemo {
+public class ReduceFixOffset {
 
     private final static String TOPIC = "motorVehicleDisposition";
+    private final static String groupId = "test1";
 
     /**
      * @return 返回kafkaProducer对象进行操作
      */
     public static void seekTopicData(int target) {
-        KafkaConsumer consumer = (KafkaConsumer) Commons.createConsumer();
+        final Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
 
         final String topicall = TOPIC;
         String[] topics = topicall.split(",");
@@ -69,8 +71,6 @@ public class ReduceNumberOffsetConsumerDemo {
 
             }
             consumer.commitSync();
-//            consumer.close();
-//            System.exit(0);
         }
     }
 

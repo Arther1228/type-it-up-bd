@@ -1,6 +1,6 @@
 package com.yang.kafka.demo.adminclient;
 
-import com.yang.kafka.demo.Commons;
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsOptions;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
@@ -23,8 +23,8 @@ public class KafkaTopicCreator {
 
     public static void main(String[] args) {
         String topicName = "clicks1";
-        String bootstrapServers = Commons.getShinyClusterServer();
-        Properties props = Commons.initProperties(bootstrapServers);
+        String bootstrapServers = KafkaUtil.getShinyClusterServer();
+        Properties props = KafkaUtil.initProperties(bootstrapServers);
         try {
             AdminClient adminClient = AdminClient.create(props);
             // Create a new topic with one partition and a replication factor of one

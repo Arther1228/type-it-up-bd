@@ -2,7 +2,7 @@ package com.yang.kafka.demo.adminclient;
 
 import java.util.Properties;
 
-import com.yang.kafka.demo.Commons;
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 
@@ -15,7 +15,7 @@ public class KafkaTopicLister {
     public static void main(String[] args) {
         Properties props = new Properties();
         //      props.put("bootstrap.servers", Commons.getLocalClusterServer());
-        props.put("bootstrap.servers", Commons.getShinyClusterServer());
+        props.put("bootstrap.servers", KafkaUtil.getShinyClusterServer());
         try (AdminClient client = AdminClient.create(props)) {
             ListTopicsResult topics = client.listTopics();
             topics.names().get().forEach(System.out::println);

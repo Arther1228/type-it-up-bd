@@ -1,11 +1,13 @@
 package com.yang.kafka.demo.offset;
 
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.junit.Test;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -15,14 +17,17 @@ import java.util.*;
 
 /**
  * @author yangliangchuang 2022/9/5 18:43
- *  * 尝试使用时间戳完成偏移量设置
- *  * https://blog.csdn.net/weixin_38251332/article/details/120081411
+ * * 尝试使用时间戳完成偏移量设置
+ * * https://blog.csdn.net/weixin_38251332/article/details/120081411
  */
-public class SetTimestampOffsetConsumerDemo {
+public class SetTimestampOffsetDemo {
 
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     private final static String TOPIC = "motorVehicleDisposition";
+    private final static String groupId = "test1";
+
+    final static Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
 
     public static void setOffset(Consumer<String, String> consumer, long timestamp, String topic) {
         //===========================
@@ -68,9 +73,8 @@ public class SetTimestampOffsetConsumerDemo {
         }
         //时间戳设置完毕
         //=========================
-
-
         int count = 0;
+
         try {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(5000);
@@ -90,11 +94,8 @@ public class SetTimestampOffsetConsumerDemo {
         }
     }
 
-    public static void main(String[] args) {
-
-        Consumer<String, String> consumer = Commons.createConsumer();
-
+    @Test
+    public void consumer() {
         setOffset(consumer, 1662384147000L, TOPIC);
     }
-
 }

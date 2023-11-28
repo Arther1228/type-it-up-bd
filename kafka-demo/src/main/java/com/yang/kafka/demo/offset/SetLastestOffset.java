@@ -1,9 +1,11 @@
 package com.yang.kafka.demo.offset;
 
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,13 +18,17 @@ import java.util.List;
  * https://github.com/cocowool/sh-valley/blob/master/java/java-kafka/src/main/java/cn/edulinks/KafkaConsumerDemo.java
  */
 
-public class GetTopicPartitionInfoDemo {
+public class SetLastestOffset {
 
     private final static String TOPIC = "motorVehicleDisposition";
+    private final static String groupId = "test1";
 
-    // 获取某个Topic的所有分区以及分区最新的Offset
-    public static void getPartitionsForTopic() {
-        final Consumer<String, String> consumer = Commons.createConsumer();
+    final static Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
+
+    /**
+     * 获取某个Topic的所有分区以及分区最新的Offset
+     */
+    public static void SetLastestOffset() {
 
         Collection<PartitionInfo> partitionInfos = consumer.partitionsFor(TOPIC);
         System.out.println("Get the partition info as below:");
@@ -40,8 +46,8 @@ public class GetTopicPartitionInfoDemo {
     }
 
     // 持续不断的消费数据
-    public static void run() throws InterruptedException {
-        final Consumer<String, String> consumer = Commons.createConsumer();
+    public static void run() {
+
         consumer.subscribe(Collections.singletonList(TOPIC));
         final int giveUp = 100;
         int noRecordsCount = 0;
@@ -51,16 +57,17 @@ public class GetTopicPartitionInfoDemo {
 
             if (consumerRecords.count() == 0) {
                 noRecordsCount++;
-                if (noRecordsCount > giveUp) break;
-                else continue;
+                if (noRecordsCount > giveUp) {
+                    break;
+                } else {
+                    continue;
+                }
             }
 
             // int i = 0;
             consumerRecords.forEach(record -> {
                 // i = i + 1;
-                System.out.printf("Consumer Record:(%d, %s, %d, %d)\n",
-                        record.key(), record.value(),
-                        record.partition(), record.offset());
+                System.out.printf("Consumer Record:(%d, %s, %d, %d)\n", record.key(), record.value(), record.partition(), record.offset());
             });
 
             // System.out.println("Consumer Records " + i);
@@ -71,10 +78,9 @@ public class GetTopicPartitionInfoDemo {
         System.out.println("Kafka Consumer Exited");
     }
 
-    public static void main(String[] args) throws InterruptedException {
-
-        getPartitionsForTopic();
+    @Test
+    public void comsumer() {
+        SetLastestOffset();
         run();
-
     }
 } 

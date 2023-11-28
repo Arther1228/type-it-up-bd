@@ -1,12 +1,12 @@
 package com.yang.kafka.demo.lag;
 
-import com.yang.kafka.demo.offset.Commons;
+import com.yang.kafka.demo.util.KafkaUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
+import org.junit.Test;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -15,18 +15,20 @@ import java.util.*;
  *
  */
 @Slf4j
-public class PartitionListAndLag {
+public class TopicLagSearch {
 
-    private final static String topic = "peopleFace";
-    private final static String groupId = "kafka-filter-check-19";
+    private final static String topic = "wifiData";
+    private final static String groupId = "wifi-kafka-hbase";
 
     /**
-     * @return 返回kafkaProducer对象进行操作
+     * @return
      */
-    public static void getPartitionListAngLag() {
+    @Test
+    public void getLag() {
         long startTime = System.currentTimeMillis();
 
-        KafkaConsumer consumer = (KafkaConsumer) Commons.createConsumer();
+        KafkaConsumer consumer = (KafkaConsumer) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
+
         //查询 topic partitions
         List<TopicPartition> topicPartitionList = new ArrayList<>();
         List<PartitionInfo> partitionInfoList = consumer.partitionsFor(topic);
@@ -72,12 +74,6 @@ public class PartitionListAndLag {
         }
 
         log.info("Topic:" + topic + "  groupId:" + groupId + "  logSize:" + logSize + "  offset:" + offset + "  totalLag:" + totalLag);
-
-
-    }
-
-    public static void main(String[] args) {
-        getPartitionListAngLag();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.yang.kafka.demo.producer;
 
-import com.yang.kafka.demo.Commons;
+import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
@@ -18,7 +18,7 @@ public class KafkaProducerExample {
 
         // 设置 Producer 属性
 //        Properties props = Commons.initProperties(Commons.getLocalClusterServer());
-        Properties props = Commons.initProperties(Commons.getShinyClusterServer());
+        Properties props = KafkaUtil.initProperties(KafkaUtil.getShinyClusterServer());
         // 创建生产者实例
         Producer<String, String> producer = new KafkaProducer<>(props);
         // 构造一个 JSON 对象作为消息体

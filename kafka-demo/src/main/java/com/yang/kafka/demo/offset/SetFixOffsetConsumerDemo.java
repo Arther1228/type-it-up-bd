@@ -1,6 +1,7 @@
 package com.yang.kafka.demo.offset;
 
 import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -12,6 +13,7 @@ import java.util.*;
  */
 
 public class SetFixOffsetConsumerDemo {
+
     private static final String TOPIC = "motorVehicle";
 
     private static String servers = "34.8.8.115:21005,34.8.8.109:21005,34.8.8.116:21005,34.8.8.111:21005,34.8.8.110:21005,34.8.8.112:21005,34.8.8.113:21005,34.8.8.114:21005,34.8.8.117:21005,34.8.8.118:21005,34.8.8.119:21005,34.8.8.120:21005,34.8.8.121:21005";
@@ -58,7 +60,7 @@ public class SetFixOffsetConsumerDemo {
                 System.out.println(record.offset() + ":" + record.partition());
             }
 
-            if(count % 100 == 0){
+            if (count % 100 == 0) {
                 consumer.commitAsync();
                 count = 0;
             }
@@ -102,12 +104,13 @@ public class SetFixOffsetConsumerDemo {
                 System.out.println(record.offset() + ":" + record.value() + ":" + record.partition());
             }
 
-            if(count % 100 == 0){
+            if (count % 100 == 0) {
                 consumer.commitAsync();
                 count = 0;
             }
         }
     }
+
 
     public static void setTimeStampOffset() {
 
@@ -159,7 +162,7 @@ public class SetFixOffsetConsumerDemo {
                 System.out.println(record.offset() + ":" + record.value() + ":" + record.partition() + ":" + record.timestamp());
             }
 
-            if(count % 100 == 0){
+            if (count % 100 == 0) {
                 consumer.commitAsync();
                 count = 0;
             }
