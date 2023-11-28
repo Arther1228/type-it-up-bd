@@ -7,7 +7,9 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 
 /**
- * @desc:shiny集群2.11-0.11.0.1和单机集群2.11-2.1.0测试通过
+ * @desc:
+ * 单机集群2.11-2.1.0测试通过
+ * shiny集群2.11-0.11.0.1测试通过
  */
 public class KafkaTopicLister {
 

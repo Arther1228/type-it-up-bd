@@ -1,12 +1,9 @@
 package com.yang.kerberos.demo.kafka;
 
-import org.apache.kafka.clients.CommonClientConfigs;
+import com.yang.kerberos.demo.util.KerberosUtil;
 import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.clients.producer.ProducerConfig;
 
-import java.io.File;
 import java.util.Collections;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -24,25 +21,9 @@ public class HDKafkaTopicCreator {
     private static short replicationFactor = 1;
 
     public static void main(String[] args) {
-
-        String krb5ConfPath = System.getProperty("user.dir") + File.separator + "kerberos-demo" + "/conf/" + "krb5.conf";
-        String jaasConfPath = System.getProperty("user.dir") + File.separator + "kerberos-demo" + "/conf/" + "jaas.conf";
-
-        System.setProperty("java.security.krb5.conf", krb5ConfPath);
-        System.setProperty("sun.security.krb5.debug", "true");
-        System.setProperty("java.security.auth.login.config", jaasConfPath);
-
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "34.8.8.115:21007");
-//        props.put(ProducerConfig.CLIENT_ID_CONFIG, "test-connection");
-        props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-        props.put("sasl.mechanism", "GSSAPI");
-        props.put("sasl.kerberos.service.name", "kafka");
-
         String topicName = "clicks1";
+        AdminClient adminClient = KerberosUtil.createKafkaClient();
         try {
-            AdminClient adminClient = AdminClient.create(props);
-            // Create a new topic with one partition and a replication factor of one
             NewTopic newTopic = new NewTopic(topicName, numPartitions, replicationFactor);
 //            newTopic.configs(Collections.singletonMap(TopicConfig.RETENTION_MS_CONFIG, "86400000"));
             CreateTopicsResult createTopicsResult = adminClient.createTopics(Collections.singleton(newTopic), new CreateTopicsOptions().timeoutMs(2000));

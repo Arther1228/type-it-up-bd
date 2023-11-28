@@ -4,6 +4,7 @@ import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DeleteTopicsOptions;
 import org.apache.kafka.common.errors.UnknownTopicOrPartitionException;
+import org.junit.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,17 +15,19 @@ import java.util.concurrent.ExecutionException;
  * @author admin
  * //TODO 代码有问题，windows删除会把kafka集群搞挂
  * //TODO 有可能需要使用SASL认证之后，才能删除雪亮Kafka中的Topic
- *
  */
 public class KafkaTopicDeletor {
 
     /**
-     * @param bootstrapServers
-     * @param topicName
      * @throws ExecutionException
      * @throws InterruptedException((HashMap) topics.futures).size
      */
-    public static void deleteTopic(String bootstrapServers, String topicName) throws ExecutionException, InterruptedException {
+    @Test
+    public void deleteTopic() throws ExecutionException, InterruptedException {
+        String bootstrapServers = KafkaUtil.getLocalClusterServer();
+
+        String topicName = "click1";
+
         Properties props = new Properties();
         props.put("bootstrap.servers", bootstrapServers);
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -53,10 +56,4 @@ public class KafkaTopicDeletor {
         }
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-
-        String topicName = "click1";
-
-        deleteTopic(KafkaUtil.getLocalClusterServer(), topicName);
-    }
 }

@@ -14,7 +14,9 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * @author admin
- * @desc:单机集群2.11-2.1.0测试通过
+ * @desc:
+ * 单机集群2.11-2.1.0测试通过
+ * shiny集群2.11-0.11.0.1 参照kerberos-demo中的kafka示例
  */
 public class KafkaTopicCreator {
 

@@ -11,7 +11,9 @@ import org.junit.Test;
 
 /**
  * @author admin
- * @desc:shiny集群2.11-0.11.0.1和单机集群2.11-2.1.0测试通过
+ * @desc:
+ * 单机集群2.11-2.1.0测试通过
+ * shiny集群2.11-0.11.0.1测试通过
  */
 @Slf4j
 public class KafkaClusterChecker {
