@@ -23,6 +23,8 @@ public class SetFixOffsetDemo {
     private static String groupId = "kafka-offset-search-1";
 
     private static String autoOffsetReset = "latest";
+    private static Properties props = initConfig();
+    private static KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
 
     /**
@@ -32,8 +34,6 @@ public class SetFixOffsetDemo {
     @Test
     public void setFixOffset() {
 
-        Properties props = initConfig();
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(TOPIC));
 
         Set<TopicPartition> assignment = new HashSet<>();
@@ -54,7 +54,7 @@ public class SetFixOffsetDemo {
             consumer.seek(tp, offset);
         }
 
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
     /**
@@ -64,7 +64,6 @@ public class SetFixOffsetDemo {
     public void reduceFixOffset() {
 
         int target = 1;
-        final Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
 
         consumer.subscribe(Arrays.asList(TOPIC));
         System.out.println("获取订阅-开始拉去数据");
@@ -102,7 +101,7 @@ public class SetFixOffsetDemo {
         }
         consumer.commitSync();
 
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
 

@@ -40,7 +40,7 @@ public class SetBeginOrEndOffset {
             System.out.println("Partition " + str.partition() + " 's latest offset is '" + consumer.position(new TopicPartition(TOPIC, str.partition())));
         });
 
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class SetBeginOrEndOffset {
             System.out.println("Partition " + str.partition() + " 's latest offset is '" + consumer.position(new TopicPartition(TOPIC, str.partition())));
         });
 
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
 }

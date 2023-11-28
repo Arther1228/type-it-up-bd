@@ -6,6 +6,7 @@ import org.apache.kafka.clients.producer.*;
 import java.util.Properties;
 
 import com.alibaba.fastjson.JSONObject;
+import org.junit.Test;
 
 /**
  * @author admin
@@ -14,8 +15,8 @@ public class KafkaProducerExample {
 
     private static final String TOPIC_NAME = "clicks5";
 
-    public static void main(String[] args) {
-
+    @Test
+    public void produce() {
         // 设置 Producer 属性
 //        Properties props = Commons.initProperties(Commons.getLocalClusterServer());
         Properties props = KafkaUtil.initProperties(KafkaUtil.getShinyClusterServer());

@@ -22,20 +22,23 @@ public class SetTimestampOffsetDemo {
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     private final static String TOPIC = "motorVehicleDisposition";
+
     private final static String groupId = "test1";
 
     final static Consumer<String, String> consumer = KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
 
     /**
      * https://blog.csdn.net/weixin_38251332/article/details/120081411
+     * kafka consumer指定时间戳消费
      */
     @Test
-    public static void setOffset() {
+    public void setOffsetByTimeStamp() {
         long timestamp = 1662384147000L;
         //===========================
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
         Instant instant = Instant.ofEpochMilli(timestamp);
         String format = formatter.format(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()));
+        System.out.println("按照" + format + "最新的偏移量");
 
         //时间戳设置
 //        Map<TopicPartition, OffsetAndMetadata> offset = new HashMap<>();
@@ -49,7 +52,6 @@ public class SetTimestampOffsetDemo {
                 map.put(new TopicPartition(p.topic(), p.partition()), timestamp);
             }
 
-            System.out.println("按照" + format + "最新的偏移量");
             Map<TopicPartition, OffsetAndTimestamp> offsetTimestamp = consumer.offsetsForTimes(map);
             List<TopicPartition> tp = new ArrayList<>();
             for (Map.Entry<TopicPartition, OffsetAndTimestamp> entry : offsetTimestamp.entrySet()) {
@@ -60,7 +62,7 @@ public class SetTimestampOffsetDemo {
                 consumer.assign(tp);
 
                 //根据消费里的timestamp确定offset
-                long position = 0;
+                long position;
                 if (value != null) {
                     position = value.offset();
                 } else {
@@ -74,8 +76,7 @@ public class SetTimestampOffsetDemo {
 
         }
         //时间戳设置完毕
-
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
     /**
@@ -118,7 +119,7 @@ public class SetTimestampOffsetDemo {
             }
         }
 
-        ConsumerUtil.collect(TOPIC, groupId);
+        ConsumerUtil.pollRecords(consumer);
     }
 
 }

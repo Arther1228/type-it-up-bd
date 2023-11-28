@@ -3,6 +3,7 @@ package com.yang.kafka.demo.offset;
 import com.yang.kafka.demo.util.KafkaUtil;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +19,12 @@ public class SetOffsetOnRebalancedDemo {
     private final static String TOPIC = "motorVehicleDisposition";
     private final static String groupId = "test1";
 
-    public static void main(String[] args) {
+    @Test
+    public void collect() {
         String startTime = "20230424";
         KafkaConsumer<String, String> consumer = (KafkaConsumer<String, String>) KafkaUtil.createConsumer(KafkaUtil.getShinyClusterServer(), groupId);
         SetOffset setOffset = new SetOffset(consumer, TOPIC, startTime);
         setOffset.submitOffset();
-
         try {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(5000);
