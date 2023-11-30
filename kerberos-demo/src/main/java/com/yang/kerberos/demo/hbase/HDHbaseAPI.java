@@ -134,6 +134,28 @@ public class HDHbaseAPI {
 
     }
 
+    /**
+     * 获取表region
+     */
+    public static void getTableRegions(String table) throws IOException {
+        FusionInsightLogin.initAndLogin();
+        Configuration config = HBaseConfiguration.create();
+        TableName tableName = TableName.valueOf(table);
+
+        // 获取HBase连接
+        try (Connection connection = ConnectionFactory.createConnection(config)) {
+            // 获取表的region定位器
+            try (RegionLocator regionLocator = connection.getRegionLocator(tableName)) {
+                // 获取表的所有region的位置信息
+                List<HRegionLocation> allRegionLocations = regionLocator.getAllRegionLocations();
+
+                // 打印region数量
+                System.out.println("Region Count: " + allRegionLocations.size());
+            }
+        }
+
+    }
+
 
     // 查询指定Cell数据
     public static String getCell(TableName tableName, String rowKey, String cf, String column) throws IOException {

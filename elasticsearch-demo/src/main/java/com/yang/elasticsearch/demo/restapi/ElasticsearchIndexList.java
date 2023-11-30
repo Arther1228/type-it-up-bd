@@ -1,4 +1,4 @@
-package com.yang.elasticsearch.demo.httpclient;
+package com.yang.elasticsearch.demo.restapi;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -32,7 +32,7 @@ public class ElasticsearchIndexList {
             if (entity != null) {
                 String jsonString = EntityUtils.toString(entity);
                 List<String> indexList = parseIndexList(jsonString);
-                
+
                 // 打印索引列表
                 for (String index : indexList) {
                     System.out.println(index);
@@ -48,7 +48,7 @@ public class ElasticsearchIndexList {
 
         Gson gson = new Gson();
         JsonArray jsonArray = gson.fromJson(jsonString, JsonArray.class);
-        
+
         for (JsonElement jsonElement : jsonArray) {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             String indexName = jsonObject.get("index").getAsString();

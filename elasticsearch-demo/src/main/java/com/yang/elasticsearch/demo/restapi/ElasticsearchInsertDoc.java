@@ -1,4 +1,4 @@
-package com.yang.elasticsearch.demo.httpclient;
+package com.yang.elasticsearch.demo.restapi;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;

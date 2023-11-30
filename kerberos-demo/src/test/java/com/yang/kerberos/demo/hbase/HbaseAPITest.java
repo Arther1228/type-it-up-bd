@@ -21,5 +21,11 @@ public class HbaseAPITest {
         HDHbaseAPI.tableList();
     }
 
+    @Test
+    public void getTableRegions() throws IOException {
+        String tableName = "WIFI";
+        HDHbaseAPI.getTableRegions(tableName);
+    }
+
 
 }

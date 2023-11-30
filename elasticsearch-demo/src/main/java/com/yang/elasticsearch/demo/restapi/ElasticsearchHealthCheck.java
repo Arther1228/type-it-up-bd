@@ -1,4 +1,4 @@
-package com.yang.elasticsearch.demo.httpclient;
+package com.yang.elasticsearch.demo.restapi;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;

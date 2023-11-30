@@ -1,4 +1,4 @@
-package com.yang.elasticsearch.demo.httpclient;
+package com.yang.elasticsearch.demo.restapi;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
