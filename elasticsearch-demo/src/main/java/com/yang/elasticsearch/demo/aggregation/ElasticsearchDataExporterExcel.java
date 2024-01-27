@@ -108,7 +108,7 @@ public class ElasticsearchDataExporterExcel {
                 if (number1 > 1) {
                     realName += "/" + field2Value;
                 } else {
-                    realName += field2Value;
+                    realName = field2Value;
                 }
 
                 ParsedStringTerms agg3 = agg2Bucket.getAggregations().get("org_level_two_agg");
@@ -122,7 +122,7 @@ public class ElasticsearchDataExporterExcel {
                     if (number2 > 1) {
                         org_name_two += "/" + field3Value;
                     } else {
-                        org_name_two += field3Value;
+                        org_name_two = field3Value;
                     }
                     count += agg3Bucket.getDocCount();
                 }
