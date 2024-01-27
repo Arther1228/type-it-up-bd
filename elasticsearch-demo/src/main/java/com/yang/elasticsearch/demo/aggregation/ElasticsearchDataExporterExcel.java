@@ -2,6 +2,7 @@ package com.yang.elasticsearch.demo.aggregation;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import lombok.Data;
@@ -155,9 +156,16 @@ public class ElasticsearchDataExporterExcel {
     @Data
     static class ExportData {
 
+        @ExcelProperty(value = "用户名", index = 0)
         private String oper_user_name;
+
+        @ExcelProperty(value = "姓名", index = 1)
         private String oper_real_name;
+
+        @ExcelProperty(value = "所在单位", index = 2)
         private String org_level_two_name;
+
+        @ExcelProperty(value = "操作次数", index = 3)
         private long count;
 
         public ExportData(String oper_user_name, String oper_real_name, String org_level_two_name, long count) {
