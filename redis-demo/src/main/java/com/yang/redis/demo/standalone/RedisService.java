@@ -1,4 +1,4 @@
-package com.example.redis.demo.standalone;
+package com.yang.redis.demo.standalone;
 
 import java.util.List;
 import java.util.Map;

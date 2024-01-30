@@ -1,5 +1,5 @@
-package com.example.redis.demo.cluster;
- 
+package com.yang.redis.demo.cluster;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +11,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
- 
+
 import java.util.HashSet;
 import java.util.Set;
- 
+
 /**
  * Created by Administrator on 2019/2/28.
  */
@@ -66,7 +66,7 @@ public class RedisClusterConfig {
         jedisPoolConfig.setTestWhileIdle(testWhileIdle);
         return jedisPoolConfig;
     }
- 
+
     /**
      * Redis集群的配置
      * @return RedisClusterConfiguration
@@ -87,7 +87,7 @@ public class RedisClusterConfig {
         redisClusterConfiguration.setPassword(RedisPassword.of(password));
         return redisClusterConfiguration;
     }
- 
+
     /**
      * @param
      * @return
@@ -103,7 +103,7 @@ public class RedisClusterConfig {
         factory.setUsePool(true);
         return factory;
     }
- 
+
     /**
      * 实例化 RedisTemplate 对象
      *
@@ -115,7 +115,7 @@ public class RedisClusterConfig {
         initDomainRedisTemplate(redisTemplate);
         return redisTemplate;
     }
- 
+
     /**
      * 设置数据存入 redis 的序列化方式,并开启事务
      * 使用默认的序列化会导致key乱码

@@ -1,4 +1,4 @@
-package com.example.redis.demo.distributed;
+package com.yang.redis.demo.distributed;
 
 import lombok.Data;
 

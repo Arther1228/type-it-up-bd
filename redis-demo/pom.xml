@@ -87,7 +87,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.example.redis.demo.RedisDemoApplication</mainClass>
+                    <mainClass>com.yang.redis.demo.RedisDemoApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

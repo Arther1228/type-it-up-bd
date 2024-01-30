@@ -1,4 +1,4 @@
-package com.example.redis.demo.standalone;
+package com.yang.redis.demo.standalone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -979,6 +979,6 @@ public class JedisPoolTest {
         Jedis jedis = getJedis();
         System.out.println(jedis);
     }
-  
+
 }
 

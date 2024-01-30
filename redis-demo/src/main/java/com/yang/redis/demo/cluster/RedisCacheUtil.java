@@ -1,4 +1,4 @@
-package com.example.redis.demo.cluster;
+package com.yang.redis.demo.cluster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
@@ -218,7 +218,7 @@ public class RedisCacheUtil
 
     /**
      * 删除Hash中的数据
-     * 
+     *
      * @param key
      * @param mapkey
      */
