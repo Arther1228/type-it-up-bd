@@ -178,8 +178,6 @@ public class ElasticsearchDataExporterExcel {
 
     public static void main(String[] args) {
 
-        ElasticsearchDataExporterExcel elasticsearchDataExporterExcel = new ElasticsearchDataExporterExcel();
-
         List<ExportData> result = new ArrayList<>();
         result.add(new ExportData("1", "2", "3", 1));
 
