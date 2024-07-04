@@ -14,20 +14,21 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * //TODO 测试未通过
+ *  tanrsport client 版本 6.4.3 可以访问 Windows 6.5.4 测试通过
  */
 public class GetIndexMappingExample {
 
     public static void main(String[] args) throws UnknownHostException {
 
         TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("34.8.8.122"), 24001));
+                //              .addTransportAddress(new TransportAddress(InetAddress.getByName("172.16.99.5"), 9300));
+               .addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
 
         GetMappingsRequest request = new GetMappingsRequest();
-        request.indices("my_index2");
+        request.indices("user-info");
 
         GetMappingsResponse response = client.admin().indices().getMappings(request).actionGet();
-        ImmutableOpenMap<String, MappingMetaData> mappings = response.mappings().get("my_index2");
+        ImmutableOpenMap<String, MappingMetaData> mappings = response.mappings().get("user-info");
         for (ObjectObjectCursor<String, MappingMetaData> cursor : mappings) {
             System.out.println(cursor.value.sourceAsMap());
         }
